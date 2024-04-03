@@ -1,15 +1,39 @@
 package com.utndds.correlativas.modelos;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.List;
 
+@Entity
 public class Materia {
 
-    private double id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+    @GenericGenerator(name = "native",strategy = "native")
+    private Long id;
     private String nombre;
     private List<Materia> correlativas;
 
+    //constructor
+    public Materia(String nombre, List<Materia> correlativas) {
+        this.nombre = nombre;
+        this.correlativas = correlativas;
+    }
+
+    //metodos varios
+    public void agregarCorrelativa(Materia materia){
+        correlativas.add(materia);
+    }
+
     //getters y setters
 
+    public Long getId() {
+        return id;
+    }
 
     public String getNombre() {
         return nombre;
