@@ -13,10 +13,12 @@ public class Materia {
     @GenericGenerator(name = "native",strategy = "native")
     private Long id;
     private String nombre;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Materia> correlativas;
 
     //constructor
+    public Materia(){}
+
     public Materia(String nombre, List<Materia> correlativas) {
         this.nombre = nombre;
         this.correlativas = correlativas;
@@ -47,5 +49,17 @@ public class Materia {
 
     public void setCorrelativas(List<Materia> correlativas) {
         this.correlativas = correlativas;
+    }
+
+    //toString
+
+
+    @Override
+    public String toString() {
+        return "Materia{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", correlativas=" + correlativas +
+                '}';
     }
 }

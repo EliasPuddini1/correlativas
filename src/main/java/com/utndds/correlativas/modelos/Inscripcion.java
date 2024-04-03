@@ -12,12 +12,13 @@ public class Inscripcion {
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
     @GenericGenerator(name = "native",strategy = "native")
     private Long id;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Materia> materias;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Alumno alumno;
 
     //constructor
+    public Inscripcion(){}
     public Inscripcion(Alumno alumno,List<Materia> materias) {
         this.alumno = alumno;
         this.materias = materias;
@@ -25,7 +26,7 @@ public class Inscripcion {
     //metodos varios
     public boolean aprobada(){
 
-        return !materias.stream().anyMatch(materia -> materia.getCorrelativas().stream().anyMatch(materiaC -> !alumno.getMateriasHechas().contains(materiaC)));
+        return materias.stream().anyMatch(materia -> materia.getCorrelativas().stream().anyMatch(materiaC -> !alumno.getMateriasHechas().contains(materiaC)));
         //afirmo el hecho por Elias Puddini
     }
 
@@ -49,5 +50,17 @@ public class Inscripcion {
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
+    }
+
+    //toString
+
+
+    @Override
+    public String toString() {
+        return "Inscripcion{" +
+                "id=" + id +
+                ", materias=" + materias +
+                ", alumno=" + alumno +
+                '}';
     }
 }

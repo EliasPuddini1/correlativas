@@ -15,12 +15,16 @@ public class Alumno {
     @GenericGenerator(name = "native",strategy = "native")
     private Long legajo;
     private String nombre;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Materia> materiasHechas;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "alumno")
     private List<Inscripcion> inscripciones;
 
     //constructor
+    public Alumno(){
+
+    }
+
     public Alumno(String nombre, List<Materia> materiasHechas, List<Inscripcion> inscripciones) {
 
         this.nombre = nombre;
@@ -29,7 +33,7 @@ public class Alumno {
     }
 
     //metodos varios
-    public void inscribir(List<Materia> materias){
+    public boolean inscribir(List<Materia> materias){
 
         Inscripcion inscripcion = new Inscripcion(this,materias);
 
@@ -37,15 +41,17 @@ public class Alumno {
 
             addInscripcion(inscripcion);
             System.out.println(" inscripción realizada. ");
+            return true;
         }else{
 
             List<Materia> materiasF = inscripcion.getMaterias().stream().filter(materia -> this.getMateriasHechas().containsAll(materia.getCorrelativas())).collect(Collectors.toList());
 
             System.out.println(" Inscripción fallida. El alumno no cuenta con las correlativas necesarias para las materias:");
-            
+
             for(Materia materia:materiasF){
                 System.out.println("materia = " + materia);
             }
+            return false;
         }
 
     }
@@ -86,5 +92,18 @@ public class Alumno {
 
     public void setInscripciones(List<Inscripcion> inscripciones) {
         this.inscripciones = inscripciones;
+    }
+
+    //toString
+
+
+    @Override
+    public String toString() {
+        return "Alumno{" +
+                "legajo=" + legajo +
+                ", nombre='" + nombre + '\'' +
+                ", materiasHechas=" + materiasHechas +
+                ", inscripciones=" + inscripciones +
+                '}';
     }
 }
