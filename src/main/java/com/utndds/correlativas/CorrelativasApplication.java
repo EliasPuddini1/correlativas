@@ -19,14 +19,13 @@ public class CorrelativasApplication {
 		Materia paradigmas = new Materia("Paradigmas",List.of(algoritmos));
 		Materia diseñoSistemas = new Materia("Diseño de Sistemas",List.of(paradigmas));
 
-		paradigmas.agregarCorrelativa(algoritmos);
-		diseñoSistemas.agregarCorrelativa(paradigmas);
+		// Crear inscripción con las materias a verificar
+		Inscripcion inscripcion = new Inscripcion(null, List.of(diseñoSistemas));
 
 		// Crear alumno y agregar materias hechas
-		Alumno alumno = new Alumno("juan",List.of(algoritmos,paradigmas),null);
+		Alumno alumno = new Alumno("juan",List.of(algoritmos,paradigmas),List.of(inscripcion));
+		inscripcion.setAlumno(alumno);
 
-		// Crear inscripción con las materias a verificar
-		Inscripcion inscripcion = new Inscripcion(alumno, List.of(diseñoSistemas));
 
 		// Verificar si la inscripción está aprobada
 		if (inscripcion.aprobada()) {
@@ -34,6 +33,9 @@ public class CorrelativasApplication {
 		} else {
 			System.out.println("La inscripción no está aprobada");
 		}
+
+		alumno.inscribir(List.of(diseñoSistemas));
+
 	}
 
 

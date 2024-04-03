@@ -3,7 +3,9 @@ package com.utndds.correlativas.modelos;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Alumno {
@@ -23,7 +25,7 @@ public class Alumno {
 
         this.nombre = nombre;
         this.materiasHechas = materiasHechas;
-        this.inscripciones = inscripciones;
+        this.inscripciones = new ArrayList<>(inscripciones);
     }
 
     //metodos varios
@@ -31,8 +33,30 @@ public class Alumno {
 
         Inscripcion inscripcion = new Inscripcion(this,materias);
 
+        if(inscripcion.aprobada()){
 
+            addInscripcion(inscripcion);
+            System.out.println(" inscripción realizada. ");
+        }else{
 
+            List<Materia> materiasF = inscripcion.getMaterias().stream().filter(materia -> this.getMateriasHechas().containsAll(materia.getCorrelativas())).collect(Collectors.toList());
+
+            System.out.println(" Inscripción fallida. El alumno no cuenta con las correlativas necesarias para las materias:");
+            
+            for(Materia materia:materiasF){
+                System.out.println("materia = " + materia);
+            }
+        }
+
+    }
+    //metodos varios
+    public void addInscripcion(Inscripcion inscripcion){
+
+        inscripciones.add(inscripcion);
+    }
+
+    public void addMateriaHecha(Materia materia){
+        materiasHechas.add(materia);
     }
 
     //getters y setters

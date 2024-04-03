@@ -1,9 +1,6 @@
 package com.utndds.correlativas.modelos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
@@ -16,6 +13,7 @@ public class Materia {
     @GenericGenerator(name = "native",strategy = "native")
     private Long id;
     private String nombre;
+    @OneToMany
     private List<Materia> correlativas;
 
     //constructor
