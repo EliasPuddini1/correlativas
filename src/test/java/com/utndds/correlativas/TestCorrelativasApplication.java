@@ -17,7 +17,7 @@ public class TestCorrelativasApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.from(CorrelativasApplication::main).with(TestCorrelativasApplication.class).run(args);
+		//SpringApplication.from(CorrelativasApplication::main).with(TestCorrelativasApplication.class).run(args);
 	}
 
 }
