@@ -26,7 +26,14 @@ public class Inscripcion {
     //metodos varios
     public boolean aprobada(){
 
-        return materias.stream().anyMatch(materia -> materia.getCorrelativas().stream().anyMatch(materiaC -> !alumno.getMateriasHechas().contains(materiaC)));
+        for(Materia materia: materias){
+
+            if(!materia.esCorrelativaAprobada(alumno)){
+                return false;
+            }
+
+        }
+        return true;
         //afirmo el hecho por Elias Puddini
     }
 

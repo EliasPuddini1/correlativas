@@ -18,7 +18,7 @@ public class CorrelativasApplication {
 		SpringApplication.run(CorrelativasApplication.class, args);
 	}
 
-	@Bean
+	//@Bean
 	public CommandLineRunner init(AlumnoRepository alumnoRepository, InscripcionRepository inscripcionRepository, MateriaRepository materiaRepository){
 		return args -> {
 			MenuPrincipal menu = new MenuPrincipal();

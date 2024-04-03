@@ -25,6 +25,40 @@ class CorrelativasApplicationTests {
 	InscripcionRepository inscripcionRepository;
 
 	@Test
+	void testInscripcion() {
+		// Crear materias y correlativas
+		Materia algoritmos = new Materia("Algoritmos",null);
+		Materia paradigmas = new Materia("Paradigmas", List.of(algoritmos));
+		Materia diseñoSistemas = new Materia("Diseño_de_Sistemas",List.of(paradigmas,algoritmos));
+
+		// Crear inscripción con las materias a verificar
+		Inscripcion inscripcion = new Inscripcion(null, List.of(diseñoSistemas));
+
+		// Crear alumno y agregar materias hechas
+		Alumno alumno = new Alumno("juan",List.of(algoritmos,paradigmas),List.of(inscripcion));
+		inscripcion.setAlumno(alumno);
+
+		Assertions.assertTrue(inscripcion.aprobada());
+	}
+
+	@Test
+	void testInscribir(){
+		// Crear materias y correlativas
+		Materia algoritmos = new Materia("Algoritmos",null);
+		Materia paradigmas = new Materia("Paradigmas", List.of(algoritmos));
+		Materia diseñoSistemas = new Materia("Diseño_de_Sistemas",List.of(paradigmas));
+
+		// Crear inscripción con las materias a verificar
+		Inscripcion inscripcion = new Inscripcion(null, List.of(diseñoSistemas));
+
+		// Crear alumno y agregar materias hechas
+		Alumno alumno = new Alumno("juan",List.of(algoritmos,paradigmas),List.of(inscripcion));
+		inscripcion.setAlumno(alumno);
+		
+		Assertions.assertTrue(alumno.inscribir(List.of(diseñoSistemas)));
+	}
+
+	@Test
 	void testInscripcionConBDD() {
 
 		// Crear materias y correlativas

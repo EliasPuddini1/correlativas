@@ -29,6 +29,20 @@ public class Materia {
         correlativas.add(materia);
     }
 
+    public boolean esCorrelativaAprobada(Alumno alumno){
+
+        for(Materia materia: correlativas){
+
+            if(!alumno.getMateriasHechas().contains(materia)){
+                return false;
+            }
+
+        }
+
+        return true;
+
+    }
+
     //getters y setters
 
     public Long getId() {
