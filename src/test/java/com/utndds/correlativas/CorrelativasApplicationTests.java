@@ -54,7 +54,7 @@ class CorrelativasApplicationTests {
 		// Crear alumno y agregar materias hechas
 		Alumno alumno = new Alumno("juan",List.of(algoritmos,paradigmas),List.of(inscripcion));
 		inscripcion.setAlumno(alumno);
-		
+
 		Assertions.assertTrue(alumno.inscribir(List.of(diseñoSistemas)));
 	}
 
